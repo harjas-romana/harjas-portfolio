@@ -1,62 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme {
-  /* Light Mode Base */
-  --color-arctic-bg: #FAFAFA;
-  --color-arctic-surface: #FFFFFF;
-  --color-arctic-primary: #111111;
-  --color-arctic-secondary: #555555;
-  --color-arctic-border: #EAEAEA;
-  --color-arctic-accent: #0047FF;
-
-  /* Dark Mode Overrides */
-  --color-dark-bg: #0A0A0A;
-  --color-dark-surface: #111111;
-  --color-dark-primary: #F3F4F6;
-  --color-dark-secondary: #9CA3AF;
-  --color-dark-border: #222222;
-
-  --font-space: "Space Grotesk", sans-serif;
-  --font-jet: "JetBrains Mono", monospace;
-}
-
 @layer base {
-  body {
-    @apply bg-arctic-bg text-arctic-primary font-space m-0 p-0 overflow-x-hidden selection:bg-arctic-accent selection:text-white antialiased;
-    transition: background-color 0.4s ease, color 0.4s ease;
+  :root {
+    /* ARCTIC LIGHT MODE */
+    --bg-base: #F4F4F4;
+    --bg-surface: #FFFFFF;
+    --text-primary: #111111;
+    --text-secondary: #666666;
+    --border-color: #E5E5E5;
+    
+    /* THE ARDIAN ORANGE ACCENT */
+    --accent-color: #E54826;
   }
-  
-  .dark body,
-  body:where(.dark *) {
-    /* handled via dark: classes */
+
+  .dark {
+    /* DARK MODE */
+    --bg-base: #0A0A0A;
+    --bg-surface: #111111;
+    --text-primary: #FAFAFA;
+    --text-secondary: #A3A3A3;
+    --border-color: #262626;
+    
+    /* THE ARDIAN ORANGE ACCENT REMAINS THE SAME FOR BRAND CONSISTENCY */
+    --accent-color: #E54826;
+  }
+
+  body {
+    @apply bg-arctic-bg dark:bg-dark-bg text-arctic-primary dark:text-dark-primary transition-colors duration-500 antialiased;
+  }
+
+  /* Elite selection styling */
+  ::selection {
+    @apply bg-arctic-accent text-white;
   }
 }
 
+/* Custom utilities for the brutalist borders and shadows */
 @layer utilities {
-  .tracking-ultra-tight {
-    letter-spacing: -0.06em;
+  .brutal-border {
+    @apply border-2 border-arctic-primary dark:border-dark-primary;
   }
-  
-  .leading-ultra-tight {
-    line-height: 0.8;
-  }
-
-  .text-hero-giant {
-    font-size: clamp(5rem, 15vw, 20rem);
-  }
-
-  .text-footer-giant {
-    font-size: clamp(6rem, 20vw, 28rem);
-  }
-
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  .brutal-border-l {
+    @apply border-l-2 border-arctic-primary dark:border-dark-primary;
   }
 }
