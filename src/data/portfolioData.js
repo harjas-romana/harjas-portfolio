@@ -3,132 +3,156 @@ export const personalData = {
   role: "Software Development Engineer",
   email: "harjasr@myyahoo.com",
   github: "github.com/harjas-romana",
-  linkedin: "linkedin.com/in/harjas04",
-  education: [
+  linkedin: "linkedin.com/in/harjas04"
+};
+
+export const heroData = {
+  logLines: [
+    "> initializing distributed microservices...",
+    "> establishing neo-db connection pool...",
+    "> resolving upstash redis cache miss...",
+    "> validating idempotency keys for transaction...",
+    "> vectorizing semantic payloads via chromadb...",
+    "> status: 200 OK | Latency: 12ms"
+  ],
+  techMarquee: ["Java", "Spring Boot", "Kafka", "PostgreSQL", "Redis", "Python", "React", "Docker", "ChromaDB"],
+  status: "System Status: Online | Faridkot, PB / Remote",
+  roleBox: {
+    title: "Software Development Engineer",
+    subtitle: "Incoming GET @ LTM | B.Tech CSE '26",
+    figId: "FIG.01"
+  }
+};
+
+export const philosophyData = {
+  text: "I architect fault-tolerant, high-throughput systems. My engineering focus is entirely on eliminating race conditions, optimizing distributed data layers, and ensuring ACID compliance under peak loads. Whether I am deploying Redis-backed sliding window rate limiters, building event-driven Spring Boot pipelines with Kafka, or integrating agentic RAG architectures, I build the backend primitives that allow complex platforms to scale predictably.",
+  maxims: ["[ RELIABILITY ]", "[ CONCURRENCY ]", "[ IDEMPOTENCY ]"]
+};
+
+export const experienceData = {
+  company: "QuantAI Limited // Remote",
+  role: "Intern",
+  timeline: "May 2025 – Oct 2025",
+  editorialBullets: [
     {
-      institution: "Vellore Institute of Technology Bhopal",
-      degree: "B.Tech in Computer Science and Engineering",
-      duration: "Sep 2022 - Present",
-      metrics: "CGPA: 8.75 / 10.00",
-      coursework: "Distributed Systems, Data Structures & Algorithms, DBMS, Computer Networks"
+      subheading: "Platform Architecture & API Design (Trady)",
+      detail: "Engineered a high-performance B2C marketplace. Architected the client-side SPA with React/Vite and interfaced it with a Node.js/Express backend via strict RESTful endpoints, achieving optimal CDN cache hits and minimizing payload bloat."
+    },
+    {
+      subheading: "Agentic AI & Authorization Flow",
+      detail: "Designed a secure tool-calling API layer allowing autonomous AI agents to execute database mutations on behalf of users. Enforced strict RBAC via Firebase JWTs to ensure zero privilege escalation during automated execution."
+    },
+    {
+      subheading: "High-Concurrency Data & Caching",
+      detail: "Provisioned serverless PostgreSQL (NeonDB) with strict foreign-key constraints for transactional integrity. Decoupled read-heavy operations by implementing Upstash Redis with precise TTL invalidations, cutting database I/O by over 60%."
     }
   ]
 };
 
-export const experienceData = [
-  {
-    company: "QuantAI Limited, NZ",
-    role: "Software Engineer Intern",
-    duration: "May 2025 - Oct 2025",
-    bullets: [
-      "Architected an event-driven, high-concurrency bidding engine using React and Firebase, engineering a Redis-backed publish-subscribe pipeline to process concurrent bid streams; reduced real-time state synchronization latency to sub-800ms and eliminated data-layer race conditions under peak transactional loads.",
-      "Optimized a Retrieval-Augmented Generation (RAG) pipeline for an AI Voice Agent by refactoring vector query mechanisms; decreased inference latency by 5% and improved semantic retrieval accuracy by a 15% increase against baseline models.",
-      "Engineered a scalable, modular \"AI Skills Accessor\" utilizing Flask REST APIs and React, automating assessment generation and reducing manual evaluation workflows by 30%."
-    ],
-    tech: ["React", "Firebase", "Redis", "Python", "Flask", "RAG"]
-  }
-];
-
 export const projectsData = [
   {
-    title: "API Rate Limiter & Security Gateway",
-    tech: ["Java", "Redis", "Docker", "JUnit"],
-    duration: "Feb 2026 - March 2026",
-    link: "github.com/harjas-romana/rate-limiter",
-    description: "Distributed Sliding Window framework protecting backend microservices.",
-    bullets: [
-      "Architected a distributed Sliding Window API Rate Limiter in Java, protecting backend microservices from burst traffic and DDoS vectors by returning standardized HTTP 429 responses and implementing client backpressure.",
-      "Eliminated distributed race conditions by offloading state-management directly to Redis, executing atomic Lua scripts against ZSET (Sorted Set) data structures to guarantee absolute thread safety without the latency overhead.",
-      "Validated robust concurrency controls via highly threaded JUnit stress testing frameworks utilizing ExecutorService and CountDownLatch, sustaining 1,000+ simultaneous requests.",
-    ],
-    isFeatured: true
+    title: "CodeAura (Hybrid Search Engine)",
+    description: "Architected a hybrid semantic and keyword search pipeline for massive codebases. Implemented ChromaDB, BM25 ranking, and Llama-3.3-70b cross-encoder re-ranking. Engineered parallel MD5 hashing to diff and sync rapid codebase mutations.",
+    tech: ["Node.js", "ChromaDB", "React", "LLMs"],
+    link: "https://github.com/harjas-romana/codeAura",
+    liveLink: "https://codeaura.onrender.com"
   },
   {
-    title: "Cortex",
-    tech: ["React", "HDR Glow Engine", "Browser API"],
-    description: "A weirdly cool browser command center with an HDR glow engine, ambilight vibes, cursor trails, privacy mode, a custom new tab dashboard, page radar, and smart dark mode.",
-    isFeatured: true
+    title: "Premium Store (E-Commerce V2)",
+    description: "A production-grade, monolithic e-commerce backend with a decoupled React SPA. Engineered fully transactional order processing in NeonDB to prevent race conditions during inventory decrements, backed by a gracefully degrading Redis cache.",
+    tech: ["React", "Express", "PostgreSQL", "Redis"],
+    link: "https://github.com/harjas-romana/e-commerce-v2",
+    liveLink: "https://e-commerce-v2-1.onrender.com"
   },
   {
-    title: "KubeMind",
-    tech: ["React", "Kubernetes", "AI", "Voice Alerts"],
-    description: "A real-time Kubernetes cluster monitoring and auto-scaling dashboard powered by AI. Provides live telemetry visualization, intelligent pod scaling decisions, and voice-assisted alerts.",
-    isFeatured: true
+    title: "Firehose (Event-Driven Architecture)",
+    description: "A high-throughput event streaming engine. Built a Spring Boot producer/consumer ecosystem integrated with Apache Kafka to handle asynchronous data ingestion. Decoupled from a React visualization UI and Python ML training pipelines.",
+    tech: ["Java", "Spring Boot", "Kafka", "Python"],
+    link: "https://github.com/harjas-romana/firehose"
   },
   {
-    title: "Premium Store (Ecommerce)",
-    tech: ["React", "Vite", "Node.js", "Express", "NeonDB", "Redis (Upstash)", "JWT", "Render"],
-    description: "Production-ready full-stack e-commerce platform with Node REST API, PostgreSQL persistent data, Redis caching, and JWT authentication.",
+    title: "Distributed API Rate Limiter",
+    description: "Designed a distributed Sliding Window rate limiter to shield microservices from DDoS attacks. Offloaded concurrent state-management to Redis via atomic Lua scripts against ZSET structures, sustaining 1,000+ simultaneous threads with O(1) latency.",
+    tech: ["Java", "Redis", "Docker"],
+    link: "https://github.com/harjas-romana/api-rate-limiter",
+    liveLink: "https://harjas-ratelimiter-ui.onrender.com"
   },
   {
-    title: "High-Availability E-Commerce Store",
-    tech: ["Node.js", "AWS EC2", "AWS ElastiCache", "MySQL"],
-    duration: "Nov 2025 - Dec 2025",
-    description: "Engineered a cloud-native backend on AWS with Auto Scaling Groups and Redis cache-aside strategies, handling 10k connections with 99.9% uptime."
+    title: "Audio Engine (DSP Chrome Extension)",
+    description: "A real-time DOM audio-hijacking system. Engineered custom Digital Signal Processing (DSP) pipelines including 16D surround and multiband EQ shifting. Manipulated AudioContext nodes via the low-level Web Audio API to prevent memory leaks.",
+    tech: ["JavaScript", "Web Audio API", "DSP"],
+    link: "https://github.com/harjas-romana/audio-engine"
   },
   {
-    title: "CodeAura",
-    tech: ["Node.js", "ChromaDB", "LLM", "Vector Search"],
-    duration: "July 2025 - Sep 2025",
-    description: "Semantic static analysis engine utilizing ChromaDB as a vector database for natural language querying across large-scale codebases."
-  },
-  {
-    title: "Audio Engine",
-    tech: ["Chrome Extension", "Web Audio API", "JavaScript"],
-    description: "A chrome extension for YouTube enhancing audio dynamics so you can listen to music the way it SHOULD sound."
-  },
-  {
-    title: "Complaint Box App",
-    tech: ["Fullstack", "Mobile-Responsive"],
-    description: "Developed to effectively handle university complaints/feedback natively via handset, replacing slow email chains with a 1-click admin dashboard."
-  },
-  {
-    title: "Firehose",
-    tech: ["Spring Boot", "Kafka", "Python"],
-    description: "A casual starter repository representing a high-throughput event streaming architecture with frontend and Python tooling."
+    title: "MindBloom: Agentic Support System",
+    description: "Architected a low-latency, multilingual AI support infrastructure. Managed high-speed conversational state via Redis and persisted contextual RAG memory in PostgreSQL, ensuring sub-second payload delivery to the client.",
+    tech: ["React", "Upstash Redis", "PostgreSQL", "Python"],
+    link: "https://github.com/harjas-romana/capstone-one"
   }
 ];
 
-export const skillsData = [
-  { category: "Languages", tech: ["Java", "Python", "C++", "JavaScript", "SQL"] },
-  { category: "Core Ops", tech: ["System Design", "Distributed Systems", "Microservices", "RESTful APIs", "Data Structures"] },
-  { category: "Databases", tech: ["MySQL", "MongoDB", "Redis", "ChromaDB", "NeonDB"] },
-  { category: "Cloud & DevOps", tech: ["AWS Architecture", "Docker", "Kubernetes", "CI/CD", "Github Actions"] },
-  { category: "AI Tooling", tech: ["Retrieval-Augmented Generation", "LLM Integration", "Semantic Search", "Vector Embeddings"] }
+export const arsenalData = [
+  { 
+    name: "Core Primitives", 
+    tech: ["Java", "Python", "C++", "JavaScript / TypeScript", "SQL"] 
+  },
+  { 
+    name: "Backend & Distributed Systems", 
+    tech: ["Spring Boot", "Node.js / Express", "Apache Kafka", "RESTful APIs", "WebSockets"] 
+  },
+  { 
+    name: "Data Engineering & State", 
+    tech: ["PostgreSQL", "Redis (Upstash)", "ChromaDB (Vector)", "MongoDB", "RAG Pipelines"] 
+  },
+  { 
+    name: "Infrastructure & Client Shells", 
+    tech: ["Docker", "AWS", "GitHub Actions (CI/CD)", "React / Vite", "Tailwind CSS"] 
+  }
 ];
 
+export const academicsData = {
+  university: {
+    title: "Vellore Institute of Technology (VIT), Bhopal",
+    subtitle: "B.Tech in Computer Science & Engineering",
+    cgpa: "8.75 / 10.0"
+  },
+  publication: {
+    title: "Employing machine learning for hyperspectral image classification: traditional approaches and modern trends",
+    typeHeader: "PUBLISHED RESEARCH // SPRINGER",
+    link: "https://link.springer.com/article/10.1007/s11042-025-21061-0",
+    linkText: "ACCESS DOCUMENT"
+  },
+  award: {
+    title: "System Reliability Analysis - Top 10 Finalist",
+    typeHeader: "INDUSTRY CONCLAVE 2024",
+    description: "Selected from 50+ engineering teams. Presented comprehensive architectural research analyzing cascading failures in large-scale distributed systems, proposing novel mitigation strategies using circuit breakers and redundancy.",
+    link: "https://github.com/harjas-romana/industry_conclave_windowcrash",
+    linkText: "VIEW ARCHITECTURE"
+  }
+};
 export const leadershipData = [
   {
-    title: "President",
-    organization: "Stats-o-locked Club",
+    title: "President & Operations Lead",
+    organization: "Stats-O-Locked",
     bullets: [
-      "Spearheaded operations for a 35-member analytics cohort, orchestrating weekly events, structural planning, and external university outreach.",
-      "Established comprehensive workflows ensuring data integrity and robust communication among team silos."
+      "Directed a 30+ member cross-functional team, overseeing end-to-end technical and operational workflows to maintain continuous club uptime.",
+      "Architected event pipelines, managing both technical workshops and logistical operations to ensure seamless execution at scale."
     ]
   },
   {
-    title: "Design Team Lead",
+    title: "Design Lead // Visual Architecture",
     organization: "Linux Club",
     bullets: [
-      "Architected engaging visual language and event branding architectures, standardizing UI aesthetics for robust technical conferences."
+      "Engineered the visual identity and brand architecture for high-visibility technical events, seminars, and open-source bootcamps.",
+      "Delivered high-conversion digital assets, streamlining the club's aesthetic to align with modern developer-centric design standards."
     ]
   },
   {
-    title: "Public Relations Member",
-    organization: "English Literary Association",
+    title: "Public Relations // Outreach",
+    organization: "English Literary Assoc.",
     bullets: [
-      "Catalyzed social engagement metrics by designing and propagating literature-driven events and maintaining active community outreach mechanisms."
+      "Architected outreach pipelines and engagement campaigns to drive participant acquisition for large-scale university events.",
+      "Optimized inter-departmental communication strategies, significantly increasing event attendance and network growth."
     ]
   }
-];
-
-export const achievementsData = [
-  {
-    type: "Publication",
-    title: "Employing machine learning for hyperspectral image classification: traditional approaches and modern trends",
-    issuer: "Multimedia Tools and Applications (Springer Journal)",
-    date: "Sep 2025",
-    description: "Published a comprehensive analysis contrasting traditional machine learning with modern deep learning vectors for high-dimensional remote sensing data.",
-    link: "https://link.springer.com/article/10.1007/s11042-025-21061-0"
-  },
 ];
