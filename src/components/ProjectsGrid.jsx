@@ -1,106 +1,132 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { ArrowUpRight, GitBranchPlus} from 'lucide-react';
+import { projectsData } from '../data/portfolioData';
 
-const projectsList = [
-  {
-    title: "CodeAura v3 (Hybrid Search Engine)",
-    description: "A hybrid semantic + keyword search engine for codebases utilizing ChromaDB, BM25 ranking, Reciprocal Rank Fusion, and Llama-3.3-70b cross-encoder re-ranking. Features parallel MD5 diffing and a live React dashboard.",
-    tech: ["Node.js", "ChromaDB", "React", "LLMs"],
-    link: "https://github.com/harjas-romana/codeAura"
-  },
-  {
-    title: "Premium Store (E-Commerce V2)",
-    description: "Production-ready full-stack e-commerce platform. Engineered with a React frontend, Node.js/Express REST API, persistent NeonDB (PostgreSQL) storage, and Upstash Redis caching.",
-    tech: ["React", "Express", "PostgreSQL", "Redis"],
-    link: "https://github.com/harjas-romana/e-commerce-v2"
-  },
-  {
-    title: "Firehose (Event-Driven Architecture)",
-    description: "A high-throughput Spring Boot application integrated with Apache Kafka for event streaming. Includes a decoupled React/TypeScript frontend (Nexus-UI) and Python A/B testing utilities.",
-    tech: ["Spring Boot", "Kafka", "React", "TypeScript"],
-    link: "https://github.com/harjas-romana/firehose"
-  },
-  {
-    title: "Distributed API Rate Limiter",
-    description: "Architected a distributed Sliding Window API Rate Limiter to protect backend microservices. Offloaded state-management to Redis using atomic Lua scripts against ZSET structures, sustaining 1,000+ simultaneous threads.",
-    tech: ["Java", "Redis", "Docker"],
-    link: "https://github.com/harjas-romana/api-rate-limiter"
-  },
-  {
-    title: "Brainwave AI (Agriculture Support)",
-    description: "A modern React/Vite application integrating three custom Machine Learning models for crop disease detection, yield production forecasting, and crop recommendation.",
-    tech: ["React", "Vite", "Tailwind", "Python/ML"],
-    link: "https://github.com/harjas-romana/epics-project"
-  },
-  {
-    title: "Audio Engine (DSP Chrome Extension)",
-    description: "A realtime DOM audio-hijacking Chrome Extension. Engineered custom Digital Signal Processing (DSP) modes including 16D surround, 360-degree immersion, and vocal clarity EQ shifting via the Web Audio API.",
-    tech: ["JavaScript", "Chrome Extensions API", "DSP"],
-    link: "https://github.com/harjas-romana/audio-engine"
-  }
-];
+const customEase = [0.76, 0, 0.24, 1];
 
 export default function ProjectsGrid() {
-  const { scrollY } = useScroll();
-  const parallaxOffset = useTransform(scrollY, [1500, 3000], [0, -40]);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const sectionRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const yWatermark = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
 
   return (
-    <section className="relative w-full mx-auto px-6 lg:px-12 py-32 border-t border-arctic-border dark:border-dark-border transition-colors">
+    <section ref={sectionRef} className="relative w-full mx-auto px-6 lg:px-12 py-32 lg:py-48 transition-colors duration-500 overflow-hidden">
       
-      <div className="mb-24 flex items-center gap-4">
-        <span className="font-jet text-sm font-bold text-arctic-primary dark:text-dark-primary">[03]</span>
-        <h2 className="font-space text-3xl font-bold tracking-tight text-arctic-primary dark:text-dark-primary m-0 uppercase">INFRASTRUCTURE</h2>
+      {/* MASSIVE BACKGROUND WATERMARK */}
+      <motion.div 
+        style={{ y: yWatermark }}
+        className="absolute top-0 right-0 pointer-events-none z-0 select-none flex items-center justify-end w-full h-full opacity-5 dark:opacity-10"
+      >
+        <span className="font-space text-[40vw] font-black text-arctic-primary dark:text-dark-primary leading-none -mr-12">
+          03
+        </span>
+      </motion.div>
+
+      {/* SECTION HEADER */}
+      <div className="mb-24 flex items-center gap-4 relative z-10 overflow-hidden">
+        <motion.span 
+          initial={{ x: -20, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: customEase }}
+          className="font-jet text-sm font-bold text-arctic-primary dark:text-dark-primary"
+        >
+          [03]
+        </motion.span>
+        <div className="overflow-hidden">
+          <motion.h2 
+            initial={{ y: "120%", opacity: 0 }}
+            whileInView={{ y: "0%", opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: customEase }}
+            className="font-space text-3xl font-bold tracking-tight text-arctic-primary dark:text-dark-primary m-0 uppercase"
+          >
+            SYSTEM ARCHITECTURES
+          </motion.h2>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full max-w-[1600px] mx-auto">
-        {projectsList.map((project, idx) => {
+      {/* BRUTALIST ACCORDION LIST */}
+      <div className="flex flex-col border-t border-arctic-border dark:border-dark-border relative z-10">
+        {projectsData.map((project, idx) => {
+          const isHovered = hoveredIndex === idx;
+
           return (
-             <motion.div 
-               key={idx}
-               style={{ y: parallaxOffset }}
-               initial={{ opacity: 0, scale: 0.98, y: 20 }}
-               whileInView={{ opacity: 1, scale: 1, y: 0 }}
-               viewport={{ once: true, margin: "-50px" }}
-               transition={{ duration: 0.6, delay: (idx % 2) * 0.1, ease: "easeOut" }}
-               className="group flex flex-col justify-between border border-arctic-border dark:border-dark-border bg-arctic-surface dark:bg-dark-surface p-8 lg:p-10 transition-all duration-300 hover:border-arctic-accent hover:-translate-y-1 h-full"
-             >
-               <div className="flex justify-between items-start mb-6">
-                 <h3 className="font-space text-2xl lg:text-3xl font-black text-arctic-primary dark:text-dark-primary leading-tight uppercase">
-                   [ {project.title} ]
-                 </h3>
-               </div>
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-5%" }}
+              transition={{ duration: 0.8, delay: idx * 0.1, ease: customEase }}
+              onMouseEnter={() => setHoveredIndex(idx)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              className="group border-b border-arctic-border dark:border-dark-border flex flex-col relative"
+            >
+              {/* Background fill on hover */}
+              <div className="absolute inset-0 bg-arctic-primary/5 dark:bg-dark-primary/5 origin-bottom scale-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-y-100 z-0" />
 
-               <div className="mb-10 font-jet text-sm lg:text-base text-arctic-secondary dark:text-dark-secondary font-medium leading-relaxed flex-grow">
-                 {project.description}
-               </div>
+              {/* ALWAYS VISIBLE ROW HEADER */}
+              <div className="w-full flex flex-col md:flex-row md:items-center justify-between py-8 lg:py-12 px-4 cursor-pointer relative z-10">
+                <div className="flex items-center gap-6 lg:gap-12">
+                  <span className="font-jet text-xs font-bold text-arctic-secondary dark:text-dark-secondary opacity-50 w-6">
+                    0{idx + 1}
+                  </span>
+                  <h3 className="font-space text-2xl md:text-4xl lg:text-5xl font-black text-arctic-primary dark:text-dark-primary uppercase tracking-tighter transition-colors duration-300 group-hover:text-arctic-accent">
+                    {project.title}
+                  </h3>
+                </div>
+                
+                {/* Tech Tags (Hidden on mobile for cleaner layout, visible on md+) */}
+                <div className="hidden md:flex gap-3">
+                  {project.tech.slice(0, 3).map((t, i) => (
+                    <span key={i} className="font-jet text-[10px] font-bold text-arctic-primary dark:text-dark-primary border border-arctic-border dark:border-dark-border px-3 py-1 uppercase tracking-widest">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-               {/* Tech Tags & View Source aligned bottom */}
-               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mt-auto pt-6 border-t border-arctic-border dark:border-dark-border">
-                 
-                 <div className="flex flex-wrap gap-2">
-                   {project.tech.map((t, i) => (
-                     <span key={i} className="font-jet border border-current px-2 py-1 text-[10px] sm:text-xs font-bold text-arctic-primary dark:text-dark-primary tracking-widest uppercase">
-                       {t}
-                     </span>
-                   ))}
-                 </div>
+              {/* EXPANDABLE BODY (Hardware Accelerated Height) */}
+              <AnimatePresence>
+                {isHovered && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: customEase }}
+                    className="overflow-hidden relative z-10"
+                  >
+                    <div className="flex flex-col md:flex-row gap-8 lg:gap-16 px-4 pb-12 pt-4">
+                      <div className="md:w-1/2 lg:pl-24">
+                        <p className="font-jet text-sm md:text-base font-medium text-arctic-secondary dark:text-dark-secondary leading-relaxed max-w-2xl">
+                          {project.description}
+                        </p>
+                      </div>
+                      
+                      <div className="md:w-1/2 flex flex-col justify-end gap-4">
+                        <div className="flex gap-4">
+                          {project.link && (
+                            <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-jet text-xs font-bold text-arctic-primary dark:text-dark-primary bg-arctic-primary/10 dark:bg-dark-primary/10 hover:bg-arctic-primary hover:text-arctic-surface dark:hover:bg-dark-primary dark:hover:text-dark-bg transition-colors duration-300 px-4 py-2 uppercase tracking-widest border border-arctic-primary dark:border-dark-primary">
+                              <GitBranchPlus size={16} /> View Repo
+                            </a>
+                          )}
+                          {project.liveLink && (
+                            <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-jet text-xs font-bold bg-arctic-primary dark:bg-dark-primary text-arctic-surface dark:text-dark-bg hover:bg-arctic-accent hover:border-arctic-accent transition-colors duration-300 px-4 py-2 uppercase tracking-widest border border-arctic-primary dark:border-dark-primary">
+                              Live Deploy <ArrowUpRight size={16} />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-                 <a 
-                   href={project.link} 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   className="flex items-center gap-2 border border-arctic-primary dark:border-dark-primary bg-transparent text-arctic-primary dark:text-dark-primary hover:bg-arctic-primary dark:hover:bg-dark-primary hover:text-arctic-surface dark:hover:text-dark-bg transition-colors duration-300 px-4 py-2 shrink-0"
-                 >
-                   <span className="font-jet text-xs font-bold uppercase tracking-widest">
-                     VIEW SOURCE
-                   </span>
-                   <ArrowUpRight size={16} />
-                 </a>
-
-               </div>
-             </motion.div>
-          )
+            </motion.div>
+          );
         })}
       </div>
     </section>
