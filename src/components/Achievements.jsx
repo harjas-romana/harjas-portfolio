@@ -3,74 +3,114 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { BookOpen, Trophy, ArrowUpRight } from 'lucide-react';
 import { achievementsData } from '../data/portfolioData';
 
+// Elite-tier cubic-bezier easing for the "snap" effect
+const customEase = [0.76, 0, 0.24, 1];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+  }
+};
+
+const textRevealVariants = {
+  hidden: { y: "120%", opacity: 0 },
+  visible: { 
+    y: "0%", 
+    opacity: 1, 
+    transition: { duration: 1, ease: customEase } 
+  }
+};
+
 export default function Achievements() {
   const { scrollY } = useScroll();
-  const yParallax = useTransform(scrollY, [3000, 5000], [0, -100]);
+  // Using Framer Motion's optimized scroll tracking
+  const yParallax = useTransform(scrollY, [2000, 4000], [0, -80]);
 
   return (
-    <section className="relative min-h-[50vh] px-6 lg:px-20 z-10 w-full max-w-[1200px] mx-auto py-32 border-t-4 border-arctic-primary mb-20 mt-32">
+    <section className="relative w-full mx-auto px-6 lg:px-12 py-32 transition-colors">
       
-      <div className="mb-24 flex items-center justify-between">
-        <motion.h2 
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="font-space text-5xl md:text-7xl font-black text-arctic-primary tracking-tighter uppercase"
+      {/* Section Header */}
+      <div className="mb-24 flex items-center gap-4 overflow-hidden">
+        <motion.span 
+          initial={{ x: -20, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: customEase }}
+          className="font-jet text-sm font-bold text-arctic-primary dark:text-dark-primary"
         >
-          RECOGNITION_
-        </motion.h2>
+          [07]
+        </motion.span>
+        <div className="overflow-hidden">
+          <motion.h2 
+            variants={textRevealVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="font-space text-3xl md:text-5xl lg:text-7xl font-black tracking-tighter text-arctic-primary dark:text-dark-primary m-0 uppercase"
+          >
+            RECOGNITION_
+          </motion.h2>
+        </div>
       </div>
 
-      <motion.div style={{ y: yParallax }} className="flex flex-col gap-12">
+      <motion.div style={{ y: yParallax }} className="flex flex-col gap-12 max-w-[1200px] mx-auto">
         {achievementsData.map((achieve, idx) => (
           <motion.a
             href={achieve.link}
             target="_blank"
             rel="noopener noreferrer"
             key={idx}
-            initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            whileHover={{ y: -8, x: 8 }}
-            transition={{ type: "spring", stiffness: 100 }}
-            className="group relative flex flex-col md:flex-row items-start md:items-stretch bg-arctic-surface brutal-border brutal-shadow transition-all duration-300 overflow-hidden"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }}
+            className="group relative flex flex-col md:flex-row items-start md:items-stretch bg-transparent border-4 border-arctic-primary dark:border-dark-primary transition-all duration-500 overflow-hidden"
           >
-            {/* Hover slide overlay */}
-            <div className="absolute inset-0 bg-arctic-primary transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out z-0"></div>
+            {/* High-speed sliding overlay for hover state */}
+            <div className="absolute inset-0 bg-arctic-primary dark:bg-dark-primary origin-left scale-x-0 transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-x-100 z-0"></div>
 
-            <div className="bg-arctic-primary p-8 flex items-center justify-center flex-shrink-0 z-10">
+            {/* Left Icon Block */}
+            <div className="bg-arctic-primary dark:bg-dark-primary p-8 flex items-center justify-center flex-shrink-0 z-10 w-full md:w-32 transition-colors duration-500">
               {achieve.type === "Publication" ? (
-                <BookOpen size={40} className="text-arctic-surface group-hover:text-arctic-accent transition-colors" />
+                <BookOpen size={40} className="text-arctic-surface dark:text-dark-bg group-hover:scale-110 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
               ) : (
-                <Trophy size={40} className="text-arctic-surface group-hover:text-arctic-accent transition-colors" />
+                <Trophy size={40} className="text-arctic-surface dark:text-dark-bg group-hover:scale-110 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
               )}
             </div>
             
-            <div className="p-8 flex-1 z-10 group-hover:text-arctic-surface transition-colors flex flex-col justify-center">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="font-jet text-xs font-bold uppercase text-arctic-primary bg-arctic-accent px-3 py-1 brutal-border border-arctic-primary">
+            {/* Middle Content Block */}
+            <div className="p-8 flex-1 z-10 flex flex-col justify-center">
+              <div className="flex items-center gap-3 mb-6 overflow-hidden">
+                <motion.span variants={textRevealVariants} className="font-jet text-xs font-bold uppercase text-arctic-primary dark:text-dark-primary bg-arctic-accent px-3 py-1 border border-arctic-primary dark:border-dark-primary transition-colors duration-500 group-hover:border-transparent">
                   {achieve.type}
-                </span>
-                <span className="font-jet text-xs font-bold text-arctic-secondary group-hover:text-arctic-surface">
+                </motion.span>
+                <motion.span variants={textRevealVariants} className="font-jet text-xs font-bold text-arctic-secondary dark:text-dark-secondary transition-colors duration-500 group-hover:text-arctic-surface dark:group-hover:text-dark-bg">
                   {achieve.date}
-                </span>
+                </motion.span>
               </div>
               
-              <h3 className="font-space text-2xl md:text-3xl font-black leading-tight mb-2 uppercase">
-                {achieve.title}
-              </h3>
+              <div className="overflow-hidden pb-2">
+                <motion.h3 variants={textRevealVariants} className="font-space text-2xl md:text-3xl font-black leading-tight mb-2 uppercase text-arctic-primary dark:text-dark-primary transition-colors duration-500 group-hover:text-arctic-surface dark:group-hover:text-dark-bg">
+                  {achieve.title}
+                </motion.h3>
+              </div>
               
-              <h4 className="font-jet text-sm font-bold uppercase mb-4 opacity-80">
-                {achieve.issuer}
-              </h4>
+              <div className="overflow-hidden">
+                <motion.h4 variants={textRevealVariants} className="font-jet text-sm font-bold uppercase mb-4 text-arctic-primary dark:text-dark-primary opacity-80 transition-colors duration-500 group-hover:text-arctic-surface dark:group-hover:text-dark-bg">
+                  {achieve.issuer}
+                </motion.h4>
+              </div>
               
-              <p className="font-jet font-medium text-sm md:text-base leading-relaxed opacity-90">
+              <motion.p variants={textRevealVariants} className="font-jet font-medium text-sm md:text-base leading-relaxed text-arctic-secondary dark:text-dark-secondary opacity-90 transition-colors duration-500 group-hover:text-arctic-surface/80 dark:group-hover:text-dark-bg/80">
                 {achieve.description}
-              </p>
+              </motion.p>
             </div>
 
-            <div className="bg-arctic-bg brutal-border-l border-arctic-primary p-8 flex items-center justify-center z-10 group-hover:bg-arctic-accent transition-colors">
-              <ArrowUpRight size={32} className="text-arctic-primary" />
+            {/* Right Arrow Block */}
+            <div className="bg-arctic-surface dark:bg-dark-surface border-t-4 md:border-t-0 md:border-l-4 border-arctic-primary dark:border-dark-primary p-8 flex items-center justify-center z-10 transition-colors duration-500 group-hover:bg-transparent group-hover:border-transparent">
+              <ArrowUpRight size={40} className="text-arctic-primary dark:text-dark-primary transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:text-arctic-surface dark:group-hover:text-dark-bg" />
             </div>
           </motion.a>
         ))}
