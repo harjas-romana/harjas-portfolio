@@ -37,7 +37,7 @@ export default function Footer() {
 
         {/* Center: The Encrypted Resume Extraction */}
         <motion.a
-          href="/Harjas_Resume.pdf"
+          href="/Harjas-Singh-Resume.pdf"
           target="_blank"
           onMouseEnter={decodeEffect}
           className="group flex flex-col items-center"

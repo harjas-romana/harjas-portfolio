@@ -99,20 +99,6 @@ export default function Philosophy() {
           </ScrollRevealText>
         </div>
 
-        {/* --- THE MAXIMS (Blueprint Stamps) --- */}
-        <div className="w-full max-w-5xl ml-auto border-b border-border-strong">
-          <div className="mb-12">
-            <span className="font-mono text-xs md:text-sm tracking-[0.2em] text-text-muted uppercase font-bold">
-              Guiding Primitives //
-            </span>
-          </div>
-
-          <div className="flex flex-col">
-            {philosophyData.maxims.map((maxim, idx) => (
-              <MaximStamp key={idx} maxim={maxim} index={idx} />
-            ))}
-          </div>
-        </div>
 
       </div>
     </section>

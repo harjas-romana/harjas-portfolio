@@ -74,18 +74,10 @@ export const achievementsData = [
   {
     year: "2026",
     category: "Research Publication",
-    title: "[Insert Publication Title Here]",
-    description: "Authored and published research on [Topic], exploring novel methodologies in [Domain] to optimize [Outcome].",
-    link: "#",
+    title: "Employing machine learning for hyperspectral image classification: traditional approaches and modern trends",
+    description: "Published a research paper in the prestigious journal Multimedia Tools and Applications, Springer. The paper explores the application of machine learning techniques for hyperspectral image classification, providing a comprehensive review of traditional methods and emerging trends in the field.",
+    link: "https://link.springer.com/article/10.1007/s11042-025-21061-0?utm_source=researchgate.net&utm_medium=article",
     linkText: "READ PAPER"
-  },
-  {
-    year: "2024—26",
-    category: "Open Source Contributor",
-    title: "Global OSS Architecture",
-    description: "Actively contributed to the open-source ecosystem, engineering scalable solutions, resolving complex issues in distributed systems, and pushing critical pull requests to major repositories.",
-    link: "https://github.com/harjas-romana",
-    linkText: "VIEW COMMITS"
   },
   {
     year: "2024",

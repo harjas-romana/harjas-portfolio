@@ -96,7 +96,7 @@ export default function Header() {
               <MagneticNavLink key={link.name} href={link.href}>{link.name}</MagneticNavLink>
             ))}
             {/* THE CV ACCESS */}
-            <MagneticNavLink href="/Harjas_Resume.pdf" isCv={true}>CV</MagneticNavLink>
+            <MagneticNavLink href="/Harjas-Singh-Resume.pdf" isCv={true}>CV</MagneticNavLink>
           </nav>
 
           <div className="md:hidden flex items-center pr-4">
