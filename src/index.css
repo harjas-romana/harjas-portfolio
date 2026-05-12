@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme {
+  /* SWISS MINIMALIST TOKENS */
+  
+  /* Accent */
+  --color-accent: #0A34FF; /* Electric Ultramarine */
+
+  /* Backgrounds */
+  --color-bg-base: #F8F9FA; /* Alabaster/Paper */
+  --color-bg-elevated: #FFFFFF; /* Pure White */
+  
+  /* Text */
+  --color-text-primary: #111111; /* Jet Black */
+  --color-text-muted: #666666; /* Charcoal */
+  
+  /* Borders */
+  --color-border-subtle: rgba(17, 17, 17, 0.08); /* Faint structural borders */
+  --color-border-strong: rgba(17, 17, 17, 0.2);
+
+  /* Shadows (Diffuse Depth) */
+  --shadow-diffuse: 0 20px 60px -15px rgba(0, 0, 0, 0.05);
+  --shadow-diffuse-hover: 0 30px 80px -20px rgba(0, 0, 0, 0.08);
+
+  /* Typography */
+  --font-mono: "IBM Plex Mono", "JetBrains Mono", monospace;
+  --font-sans: "DM Sans", "Inter", system-ui, sans-serif;
+  --font-display: "Playfair Display", "Cormorant Garamond", serif;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-base text-text-primary font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    @apply bg-accent text-white;
+  }
+}
+
+/* ─── CLINICAL SCROLLBAR ────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ─── TICKER SCROLL ───────────────────────────────────────── */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── UTILITY CLASSES ─────────────────────────────────────── */
+.mix-blend-diff {
+  /* Inverts text to pure white against black elements */
+  mix-blend-mode: difference;
+}
+
+.line-reveal {
+  overflow: hidden;
+}
+
+/* ─── GRADIENT MASKS FOR TICKERS ──────────────────────────── */
+.ticker-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+/* ─── HIGH-TECH SHADOWS ───────────────────────────────────── */
+.shadow-diffuse {
+  box-shadow: var(--shadow-diffuse);
+  transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.shadow-diffuse:hover {
+  box-shadow: var(--shadow-diffuse-hover);
+}
